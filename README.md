@@ -1,2 +1,12 @@
 # Library-Management
-ASP.NET CORE WEB API 8, REACTJS
+
+    Using Clean Architecture
+
+## Backend
+
+    -ASP.NET Core Web Api 8
+        +Code-first using EF Core
+
+## Fontend
+
+    -ReactJs
