@@ -5,7 +5,7 @@ namespace LibraryManagement.Application.DTOs.Books.Requests
 {
     public class BookBorrowingRequestDetails : BaseEntity
     {
-        public int BookBorrowingRequestId { get; set; }
+        public Guid BookBorrowingRequestId { get; set; }
         public int Quantity { get; set; }
         public string? Title { get; set; }
         public string? Author { get; set; }
@@ -13,7 +13,7 @@ namespace LibraryManagement.Application.DTOs.Books.Requests
         public DateTime BorrowedDate { get; set; }
         public DateTime? ReturnedDate { get; set; }
 
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
 
         //Navigation property
         public BookBorrowingRequest? BookBorrowingRequest { get; set; }
