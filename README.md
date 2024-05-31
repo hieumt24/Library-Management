@@ -1,8 +1,10 @@
-# Library-Management
+# Clean Architecture Library-Management
 
-    Using Clean Architecture
+    If you find this project useful, please give it a star. Thanks! ⭐
 
-## Backend
+## Getting Started
+
+### Backend
 
     -ASP.NET Core Web Api 8
         + Use EF Core for database operations
@@ -10,6 +12,7 @@
             Use JWT for token-based authentication
             Implement refresh tokens for prolonged session.
 
-## Fontend
+### Fontend
 
     -ReactJs
+    -Library: MUI,AntDesign
