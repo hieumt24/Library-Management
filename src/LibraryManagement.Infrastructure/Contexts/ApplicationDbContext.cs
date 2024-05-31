@@ -1,6 +1,6 @@
-﻿using LibraryManagement.Application.DTOs.Account;
-using LibraryManagement.Application.DTOs.Books.Requests;
-using LibraryManagement.Application.Identity.Models;
+﻿using LibraryManagement.Application.Models.DTOs.Account;
+using LibraryManagement.Application.Models.DTOs.Books;
+using LibraryManagement.Application.Models.Identity;
 using LibraryManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

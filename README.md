@@ -5,7 +5,10 @@
 ## Backend
 
     -ASP.NET Core Web Api 8
-        +Code-first using EF Core
+        + Use EF Core for database operations
+        + Authentication :
+            Use JWT for token-based authentication
+            Implement refresh tokens for prolonged session.
 
 ## Fontend
 

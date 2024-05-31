@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagement.Application.DTOs.Account
+namespace LibraryManagement.Application.Models.DTOs.Account
 {
     public class RegisterRequest
     {

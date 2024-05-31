@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[8.0.6, )"
             },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -316,6 +320,12 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Application\\LibraryManagement.Application.csproj": {
+                "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Application\\LibraryManagement.Application.csproj"
+              },
+              "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Domain\\LibraryManagement.Domain.csproj": {
+                "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Domain\\LibraryManagement.Domain.csproj"
+              },
               "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Infrastructure\\LibraryManagement.Infrastructure.csproj": {
                 "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Infrastructure\\LibraryManagement.Infrastructure.csproj"
               }

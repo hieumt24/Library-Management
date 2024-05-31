@@ -1811,6 +1811,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.InMemory": "8.0.6",
+          "Microsoft.Extensions.Logging": "8.0.0",
           "Newtonsoft.Json": "13.0.3",
           "System.Text.Json": "8.0.3"
         },
@@ -4974,6 +4975,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "LibraryManagement.Application >= 1.0.0",
+      "LibraryManagement.Domain >= 1.0.0",
       "LibraryManagement.Infrastructure >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
@@ -5015,6 +5018,12 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Application\\LibraryManagement.Application.csproj": {
+              "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Application\\LibraryManagement.Application.csproj"
+            },
+            "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Domain\\LibraryManagement.Domain.csproj": {
+              "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Domain\\LibraryManagement.Domain.csproj"
+            },
             "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Infrastructure\\LibraryManagement.Infrastructure.csproj": {
               "projectPath": "D:\\DEV\\Nashtech\\Mid Assignment Practice\\Library-Management\\src\\LibraryManagement.Infrastructure\\LibraryManagement.Infrastructure.csproj"
             }
