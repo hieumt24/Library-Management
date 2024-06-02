@@ -9,6 +9,12 @@ namespace LibraryManagement.Domain.Common.Specifications
             Criteria = criteria;
         }
 
+        public BaseSpecification(Expression<Func<T, bool>> criteria, List<string> includeStrings)
+        {
+            Criteria = criteria;
+            IncludeStrings = includeStrings;
+        }
+
         public Expression<Func<T, bool>> Criteria { get; }
         public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
         public List<string> IncludeStrings { get; } = new List<string>();

@@ -20,6 +20,7 @@ namespace LibraryManagement.Infrastructure
 
             services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
             services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
+            services.AddScoped<IBookRepositoryAsync, BookRepositoryAsync>();
         }
 
         public static void MigrateDatabase(IServiceProvider serviceProvider)

@@ -1,7 +1,7 @@
 ﻿using LibraryManagement.Domain.Common.Models;
 using LibraryManagement.Domain.Entities;
 
-namespace LibraryManagement.Application.Models.DTOs.Books
+namespace LibraryManagement.Application.Models.DTOs.Books.Request
 {
     public class BookBorrowingRequestDetails : BaseEntity
     {

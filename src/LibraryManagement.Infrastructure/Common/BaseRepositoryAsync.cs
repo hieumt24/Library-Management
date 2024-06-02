@@ -8,7 +8,7 @@ namespace LibraryManagement.Infrastructure.Common
 {
     public class BaseRepositoryAsync<T> : IBaseRepositoryAsync<T> where T : BaseEntity
     {
-        private readonly ApplicationDbContext _dbContext;
+        public readonly ApplicationDbContext _dbContext;
 
         public BaseRepositoryAsync(ApplicationDbContext dbContext)
         {

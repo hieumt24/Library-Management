@@ -1,5 +1,5 @@
 ﻿using LibraryManagement.Application.Models.DTOs.Account;
-using LibraryManagement.Application.Models.DTOs.Books;
+using LibraryManagement.Application.Models.DTOs.Books.Request;
 using LibraryManagement.Application.Models.Identity;
 using LibraryManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;

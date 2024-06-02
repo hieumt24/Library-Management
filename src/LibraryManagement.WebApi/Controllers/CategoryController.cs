@@ -1,5 +1,5 @@
 ﻿using LibraryManagement.Application.Interfaces;
-using LibraryManagement.Application.Models.DTOs.Categories;
+using LibraryManagement.Application.Models.DTOs.Categories.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.WebApi.Controllers
@@ -21,7 +21,10 @@ namespace LibraryManagement.WebApi.Controllers
         public async Task<IActionResult> Create([FromBody] AddCategoryRequestDto request)
         {
             var response = await _categoryServiceAsync.AddCategoryAsync(request);
-
+            if (response.Message != null)
+            {
+                return BadRequest(response.Message);
+            }
             return Ok(response);
         }
 
@@ -32,6 +35,10 @@ namespace LibraryManagement.WebApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _categoryServiceAsync.GetAllCategoriesAsync();
+            if (response.Message != null)
+            {
+                return BadRequest(response.Message);
+            }
             return Ok(response);
         }
 
