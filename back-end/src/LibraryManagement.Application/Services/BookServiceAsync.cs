@@ -80,7 +80,6 @@ namespace LibraryManagement.Application.Services
             {
                 var booksSpec = BookSpecifications.GetAllBooksSpec();
                 var booksDomain = await _bookRepositoryAsync.ListAsync(booksSpec);
-                //var booksDomain = await _bookRepositoryAsync.GetBooksByCategoryAsync();
 
                 //Map Domain to Dto
                 var listBookDto = _mapper.Map<List<BookResponseDto>>(booksDomain);
