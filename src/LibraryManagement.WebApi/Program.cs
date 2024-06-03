@@ -18,7 +18,6 @@ public class Program
               options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
               options.JsonSerializerOptions.WriteIndented = true;
           });
-<<<<<<< HEAD
 
         builder.Services.AddSwaggerGen(options =>
         {
@@ -44,8 +43,7 @@ public class Program
                 { securitySchema, new[] { "Bearer" } }
             });
         });
-=======
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

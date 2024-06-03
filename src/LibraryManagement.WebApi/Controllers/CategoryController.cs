@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿using LibraryManagement.Application.Common.Services;
-=======
-﻿using LibraryManagement.Application.Interfaces;
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
+using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Models.DTOs.Categories.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,22 +15,6 @@ namespace LibraryManagement.WebApi.Controllers
             _categoryServiceAsync = categoryServiceAsync;
         }
 
-<<<<<<< HEAD
-=======
-        // POST: api/category
-        [HttpPost]
-        [Route("category")]
-        public async Task<IActionResult> Create([FromBody] AddCategoryRequestDto request)
-        {
-            var response = await _categoryServiceAsync.AddCategoryAsync(request);
-            if (response.Message != null)
-            {
-                return BadRequest(response.Message);
-            }
-            return Ok(response);
-        }
-
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
         // GET: api/categories
         [HttpGet]
         [Route("categories")]

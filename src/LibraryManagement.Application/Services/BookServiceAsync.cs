@@ -1,18 +1,10 @@
 ﻿using AutoMapper;
-<<<<<<< HEAD
 using LibraryManagement.Application.Common.Repositories;
 using LibraryManagement.Application.Common.Services;
-=======
-using LibraryManagement.Application.Interfaces;
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
 using LibraryManagement.Application.Models.DTOs.Books;
 using LibraryManagement.Application.Models.DTOs.Books.Request;
 using LibraryManagement.Application.Models.DTOs.Books.Response;
 using LibraryManagement.Application.Wrappers;
-<<<<<<< HEAD
-=======
-using LibraryManagement.Domain.Common.Repositories;
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
 using LibraryManagement.Domain.Entities;
 using LibraryManagement.Domain.Specifications.Books;
 
@@ -62,7 +54,6 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-<<<<<<< HEAD
         public async Task<Response<BookDto>> DeleteBookAsync(Guid id)
         {
             try
@@ -81,11 +72,6 @@ namespace LibraryManagement.Application.Services
             {
                 throw new Exception(ex.Message);
             }
-=======
-        public Task<Response<BookDto>> DeleteBookAsync(Guid id)
-        {
-            throw new NotImplementedException();
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
         }
 
         public async Task<Response<List<BookResponseDto>>> GetAllBookAsync()
@@ -107,7 +93,6 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-<<<<<<< HEAD
         public async Task<Response<BookResponseDto>> GetBookByIdAsync(Guid id)
         {
             try
@@ -159,16 +144,6 @@ namespace LibraryManagement.Application.Services
             {
                 throw new Exception(ex.Message);
             }
-=======
-        public Task<Response<BookResponseDto>> GetBookById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<BookDto>> UpdateBookAsync(Guid id, UpdateBookRequestDto request)
-        {
-            throw new NotImplementedException();
->>>>>>> d27a830a6df6256e681481fecb324138e493606f
         }
     }
 }
