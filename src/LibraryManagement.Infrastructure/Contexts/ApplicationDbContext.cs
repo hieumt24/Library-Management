@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 ﻿using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.BookRequest;
 using LibraryManagement.Application.Models.DTOs.Account;
 using LibraryManagement.Application.Models.DTOs.Books;
+=======
+﻿using LibraryManagement.Application.Models.DTOs.Account;
+using LibraryManagement.Application.Models.DTOs.Books.Request;
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
 using LibraryManagement.Application.Models.Identity;
 using LibraryManagement.Domain.Entities;
 using Microsoft.AspNetCore.Identity;

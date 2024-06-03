@@ -21,6 +21,13 @@ namespace LibraryManagement.Infrastructure
                    configuration.GetConnectionString("LibraryDb"),
                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
+<<<<<<< HEAD
+=======
+
+            services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
+            services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
+            services.AddScoped<IBookRepositoryAsync, BookRepositoryAsync>();
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
         }
     }
 }

@@ -15,6 +15,7 @@ namespace LibraryManagement.Domain.Specifications.Categories
         //Check name exist
         public static BaseSpecification<Category> GetCategoryByNameSpec(string name)
         {
+<<<<<<< HEAD
             var spec = new BaseSpecification<Category>(x => x.Name == name && !x.IsDeleted);
             return spec;
         }
@@ -23,6 +24,9 @@ namespace LibraryManagement.Domain.Specifications.Categories
         {
             var spec = new BaseSpecification<Category>(x => x.Id == id && !x.IsDeleted);
             spec.AddInclude(x => x.Books);
+=======
+            var spec = new BaseSpecification<Category>(x => x.Name == name);
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
             return spec;
         }
     }

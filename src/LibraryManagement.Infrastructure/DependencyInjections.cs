@@ -32,7 +32,11 @@ namespace LibraryManagement.Infrastructure
             services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
             services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
             services.AddScoped<IBookRepositoryAsync, BookRepositoryAsync>();
+<<<<<<< HEAD
             services.AddScoped<IAccountService, AccountService>();
+=======
+        }
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

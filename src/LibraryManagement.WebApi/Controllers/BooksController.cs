@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 ﻿using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.DTOs.Books.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+=======
+﻿using LibraryManagement.Application.Interfaces;
+using LibraryManagement.Application.Models.DTOs.Books.Request;
+using Microsoft.AspNetCore.Mvc;
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
 
 namespace LibraryManagement.WebApi.Controllers
 {
@@ -18,6 +24,7 @@ namespace LibraryManagement.WebApi.Controllers
             _bookServiceAsync = bookServiceAsync;
         }
 
+<<<<<<< HEAD
         // GET: api/books
         [HttpGet]
         [Route("books")]
@@ -50,6 +57,11 @@ namespace LibraryManagement.WebApi.Controllers
         [HttpPost]
         [Route("book")]
         [Authorize(Roles = $"{LibraryRoles.Admin},{LibraryRoles.SuperUser}")]
+=======
+        // POST: api/book
+        [HttpPost]
+        [Route("book")]
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
         public async Task<IActionResult> Create([FromBody] AddBookRequestDto request)
         {
             var response = await _bookServiceAsync.AddBookAsync(request);
@@ -60,6 +72,7 @@ namespace LibraryManagement.WebApi.Controllers
             return Ok(response);
         }
 
+<<<<<<< HEAD
         //PUT: api/book/{id}
         [HttpPut]
         [Route("book/{id}")]
@@ -81,6 +94,14 @@ namespace LibraryManagement.WebApi.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var response = await _bookServiceAsync.DeleteBookAsync(id);
+=======
+        // GET: api/books
+        [HttpGet]
+        [Route("books")]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _bookServiceAsync.GetAllBookAsync();
+>>>>>>> d27a830a6df6256e681481fecb324138e493606f
             if (response.Message != null)
             {
                 return BadRequest(response.Message);
