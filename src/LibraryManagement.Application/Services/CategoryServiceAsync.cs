@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using LibraryManagement.Application.Interfaces;
+using LibraryManagement.Application.Common.Repositories;
+using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Models.DTOs.Categories;
+using LibraryManagement.Application.Models.DTOs.Categories.Request;
+using LibraryManagement.Application.Models.DTOs.Categories.Response;
 using LibraryManagement.Application.Wrappers;
-using LibraryManagement.Domain.Common.Repositories;
 using LibraryManagement.Domain.Entities;
 using LibraryManagement.Domain.Specifications.Categories;
 
@@ -25,6 +27,17 @@ namespace LibraryManagement.Application.Services
             {
                 //Covert request to Domain Category
                 var categoryDomain = _mapper.Map<Category>(request);
+
+                //Check name is already exist or not
+                var categorySpec = CategorySpecifications.GetCategoryByNameSpec(categoryDomain.Name);
+                if (categorySpec != null)
+                {
+                    var existingCategory = await _categoryRepository.FirstOrDefaultAsync(categorySpec);
+                    if (existingCategory != null)
+                    {
+                        return new Response<CategoryDto>("Category Name Already Exist");
+                    }
+                }
 
                 categoryDomain.IsDeleted = false;
                 categoryDomain.CreatedOn = DateTime.UtcNow;
@@ -52,13 +65,16 @@ namespace LibraryManagement.Application.Services
             return new Response<CategoryDto>(_mapper.Map<CategoryDto>(deletedCategoryDomain));
         }
 
-        public async Task<Response<List<CategoryResponse>>> GetAllCategoriesAsync()
+        public async Task<Response<List<CategoryResponseDto>>> GetAllCategoriesAsync()
         {
             try
             {
                 var categoriesSpec = CategorySpecifications.GetAllCategoriesSpec();
                 var categoriesDomain = await _categoryRepository.ListAsync(categoriesSpec);
-                return new Response<List<CategoryResponse>>(_mapper.Map<List<CategoryResponse>>(categoriesDomain));
+
+                var listCategoryDto = _mapper.Map<List<CategoryResponseDto>>(categoriesDomain);
+
+                return new Response<List<CategoryResponseDto>>(listCategoryDto);
             }
             catch (Exception ex)
             {
@@ -66,17 +82,19 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-        public async Task<Response<CategoryResponse>> GetCategoryById(Guid id)
+        public async Task<Response<CategoryResponseDto>> GetCategoryById(Guid id)
         {
             try
             {
-                var categoryDomain = await _categoryRepository.GetByIdAsync(id);
+                var categorySpec = CategorySpecifications.GetCategoryByIdSpec(id);
+                var categoryDomain = await _categoryRepository.FirstOrDefaultAsync(categorySpec);
+
                 if (categoryDomain == null)
                 {
-                    return new Response<CategoryResponse>("Category Id Not Found");
+                    return new Response<CategoryResponseDto>("Category Id Not Found");
                 }
 
-                return new Response<CategoryResponse>(_mapper.Map<CategoryResponse>(categoryDomain));
+                return new Response<CategoryResponseDto>(_mapper.Map<CategoryResponseDto>(categoryDomain));
             }
             catch (Exception ex)
             {
@@ -99,8 +117,9 @@ namespace LibraryManagement.Application.Services
 
                 exsitingCategory.Name = categoryDomain.Name;
                 exsitingCategory.Description = categoryDomain.Description;
-                exsitingCategory.LastModifiedOn = DateTime.UtcNow;
                 exsitingCategory.IsDeleted = categoryDomain.IsDeleted;
+
+                exsitingCategory.LastModifiedOn = DateTime.UtcNow;
 
                 await _categoryRepository.UpdateAsync(exsitingCategory);
 

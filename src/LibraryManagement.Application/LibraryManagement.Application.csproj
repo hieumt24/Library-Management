@@ -21,4 +21,8 @@
     <ProjectReference Include="..\LibraryManagement.Domain\LibraryManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\DTOs\BookRequest\Response\" />
+  </ItemGroup>
+
 </Project>

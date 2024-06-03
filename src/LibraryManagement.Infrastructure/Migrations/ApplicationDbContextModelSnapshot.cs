@@ -22,50 +22,7 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Account.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedByIp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReplacedByToken")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RevokedByIp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequest", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,7 +65,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.ToTable("BookBorrowingRequests");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequestDetails", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequestDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,6 +117,49 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("BookBorrowingRequestDetails");
+                });
+
+            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Account.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedByIp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReplacedByToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RevokedByIp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("LibraryManagement.Application.Models.Identity.User", b =>
@@ -401,6 +401,29 @@ namespace LibraryManagement.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "332ffd7b-2305-49a5-a479-24307421df4a",
+                            ConcurrencyStamp = "332ffd7b-2305-49a5-a479-24307421df4a",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "843ef537-0078-496e-8fbd-ac24d3caca8d",
+                            ConcurrencyStamp = "843ef537-0078-496e-8fbd-ac24d3caca8d",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "24c286ba-a8cd-4a5f-b0be-05d067424aac",
+                            ConcurrencyStamp = "843ef537-0078-496e-8fbd-ac24d3caca8d",
+                            Name = "SuperUser",
+                            NormalizedName = "SUPERUSER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -509,14 +532,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Account.RefreshToken", b =>
-                {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequest", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", b =>
                 {
                     b.HasOne("LibraryManagement.Application.Models.Identity.User", "Approver")
                         .WithMany()
@@ -534,9 +550,9 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.Navigation("Requester");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequestDetails", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequestDetails", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequest", "BookBorrowingRequest")
+                    b.HasOne("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", "BookBorrowingRequest")
                         .WithMany("RequestDetails")
                         .HasForeignKey("BookBorrowingRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -551,6 +567,13 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("BookBorrowingRequest");
+                });
+
+            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Account.RefreshToken", b =>
+                {
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LibraryManagement.Domain.Entities.Book", b =>
@@ -624,7 +647,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Books.BookBorrowingRequest", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", b =>
                 {
                     b.Navigation("RequestDetails");
                 });

@@ -1,5 +1,5 @@
-﻿using LibraryManagement.Domain.Common.Models;
-using LibraryManagement.Domain.Common.Repositories;
+﻿using LibraryManagement.Application.Common.Repositories;
+using LibraryManagement.Domain.Common.Models;
 using LibraryManagement.Domain.Common.Specifications;
 using LibraryManagement.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ namespace LibraryManagement.Infrastructure.Common
 {
     public class BaseRepositoryAsync<T> : IBaseRepositoryAsync<T> where T : BaseEntity
     {
-        private readonly ApplicationDbContext _dbContext;
+        public readonly ApplicationDbContext _dbContext;
 
         public BaseRepositoryAsync(ApplicationDbContext dbContext)
         {

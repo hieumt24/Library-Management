@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagement.Application.Models.DTOs.Categories
+namespace LibraryManagement.Application.Models.DTOs.Categories.Request
 {
     public class AddCategoryRequestDto
     {

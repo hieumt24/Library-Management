@@ -12,6 +12,8 @@ namespace LibraryManagement.Domain.Entities
         [StringLength(500, ErrorMessage = "Description can't be longer than 500 characters.")]
         public string? Description { get; set; }
 
+        //parent and child categories
+
         //Navigation property
         public ICollection<Book>? Books { get; set; }
     }

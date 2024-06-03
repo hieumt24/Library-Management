@@ -1,4 +1,4 @@
-﻿using LibraryManagement.Application.Interfaces;
+﻿using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Mappings;
 using LibraryManagement.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +11,7 @@ namespace LibraryManagement.Application
         {
             services.AddScoped<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddScoped<IBookServiceAsync, BookServiceAsync>();
         }
     }
 }

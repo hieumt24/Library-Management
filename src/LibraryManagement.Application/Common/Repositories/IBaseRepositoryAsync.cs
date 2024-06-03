@@ -1,7 +1,7 @@
 ﻿using LibraryManagement.Domain.Common.Models;
 using LibraryManagement.Domain.Common.Specifications;
 
-namespace LibraryManagement.Domain.Common.Repositories
+namespace LibraryManagement.Application.Common.Repositories
 {
     public interface IBaseRepositoryAsync<T> where T : BaseEntity
     {

@@ -1,5 +1,5 @@
-﻿using LibraryManagement.Application.Interfaces;
-using LibraryManagement.Application.Models.DTOs.Categories;
+﻿using LibraryManagement.Application.Common.Services;
+using LibraryManagement.Application.Models.DTOs.Categories.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.WebApi.Controllers
@@ -15,23 +15,16 @@ namespace LibraryManagement.WebApi.Controllers
             _categoryServiceAsync = categoryServiceAsync;
         }
 
-        // POST: api/category
-        [HttpPost]
-        [Route("category")]
-        public async Task<IActionResult> Create([FromBody] AddCategoryRequestDto request)
-        {
-            var response = await _categoryServiceAsync.AddCategoryAsync(request);
-
-            return Ok(response);
-        }
-
         // GET: api/categories
-
         [HttpGet]
         [Route("categories")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _categoryServiceAsync.GetAllCategoriesAsync();
+            if (response.Message != null)
+            {
+                return BadRequest(response.Message);
+            }
             return Ok(response);
         }
 
@@ -44,6 +37,19 @@ namespace LibraryManagement.WebApi.Controllers
             if (response.Message != null)
             {
                 return NotFound(response.Message);
+            }
+            return Ok(response);
+        }
+
+        // POST: api/category
+        [HttpPost]
+        [Route("category")]
+        public async Task<IActionResult> Create([FromBody] AddCategoryRequestDto request)
+        {
+            var response = await _categoryServiceAsync.AddCategoryAsync(request);
+            if (response.Message != null)
+            {
+                return BadRequest(response.Message);
             }
             return Ok(response);
         }

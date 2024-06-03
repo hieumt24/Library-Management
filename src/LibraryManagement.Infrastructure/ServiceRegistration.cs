@@ -1,7 +1,4 @@
-﻿using LibraryManagement.Domain.Common.Repositories;
-using LibraryManagement.Infrastructure.Common;
-using LibraryManagement.Infrastructure.Contexts;
-using LibraryManagement.Infrastructure.Repositories;
+﻿using LibraryManagement.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +21,6 @@ namespace LibraryManagement.Infrastructure
                    configuration.GetConnectionString("LibraryDb"),
                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
-
-            services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
-            services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
         }
     }
 }

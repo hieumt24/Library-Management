@@ -1,4 +1,4 @@
-﻿using LibraryManagement.Domain.Common.Repositories;
+﻿using LibraryManagement.Application.Common.Repositories;
 using LibraryManagement.Domain.Entities;
 using LibraryManagement.Infrastructure.Common;
 using LibraryManagement.Infrastructure.Contexts;

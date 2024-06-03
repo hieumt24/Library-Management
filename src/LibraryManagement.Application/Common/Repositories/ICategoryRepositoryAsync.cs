@@ -1,6 +1,6 @@
 ﻿using LibraryManagement.Domain.Entities;
 
-namespace LibraryManagement.Domain.Common.Repositories
+namespace LibraryManagement.Application.Common.Repositories
 {
     public interface ICategoryRepositoryAsync : IBaseRepositoryAsync<Category>
     {

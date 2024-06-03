@@ -2,7 +2,7 @@
 using LibraryManagement.Application.Models.Identity;
 using LibraryManagement.Domain.Common.Models;
 
-namespace LibraryManagement.Application.Models.DTOs.Books
+namespace LibraryManagement.Application.Models.BookRequest
 {
     public class BookBorrowingRequest : BaseEntity
     {
