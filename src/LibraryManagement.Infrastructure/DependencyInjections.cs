@@ -32,13 +32,14 @@ namespace LibraryManagement.Infrastructure
             services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
             services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
             services.AddScoped<IBookRepositoryAsync, BookRepositoryAsync>();
-            //services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountService, AccountService>();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,31 +60,31 @@ namespace LibraryManagement.Infrastructure
                         ValidAudience = configuration["JWTSettings:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:Key"]))
                     };
-                    o.Events = new JwtBearerEvents()
-                    {
-                        OnAuthenticationFailed = c =>
-                        {
-                            c.NoResult();
-                            c.Response.StatusCode = 500;
-                            c.Response.ContentType = "text/plain";
-                            return c.Response.WriteAsync(c.Exception.ToString());
-                        },
-                        OnChallenge = context =>
-                        {
-                            context.HandleResponse();
-                            context.Response.StatusCode = 401;
-                            context.Response.ContentType = "application/json";
-                            var result = JsonConvert.SerializeObject(new Response<string>("You are not Authorized"));
-                            return context.Response.WriteAsync(result);
-                        },
-                        OnForbidden = context =>
-                        {
-                            context.Response.StatusCode = 403;
-                            context.Response.ContentType = "application/json";
-                            var result = JsonConvert.SerializeObject(new Response<string>("You are not authorized to access this resource"));
-                            return context.Response.WriteAsync(result);
-                        },
-                    };
+                    //o.Events = new JwtBearerEvents()
+                    //{
+                    //    OnAuthenticationFailed = c =>
+                    //    {
+                    //        c.NoResult();
+                    //        c.Response.StatusCode = 500;
+                    //        c.Response.ContentType = "text/plain";
+                    //        return c.Response.WriteAsync(c.Exception.ToString());
+                    //    },
+                    //    OnChallenge = context =>
+                    //    {
+                    //        context.HandleResponse();
+                    //        context.Response.StatusCode = 401;
+                    //        context.Response.ContentType = "application/json";
+                    //        var result = JsonConvert.SerializeObject(new Response<string>("You are not Authorized"));
+                    //        return context.Response.WriteAsync(result);
+                    //    },
+                    //    OnForbidden = context =>
+                    //    {
+                    //        context.Response.StatusCode = 403;
+                    //        context.Response.ContentType = "application/json";
+                    //        var result = JsonConvert.SerializeObject(new Response<string>("You are not authorized to access this resource"));
+                    //        return context.Response.WriteAsync(result);
+                    //    },
+                    //};
                 });
         }
     }

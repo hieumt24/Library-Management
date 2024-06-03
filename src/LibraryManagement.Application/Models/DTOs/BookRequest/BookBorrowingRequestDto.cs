@@ -13,9 +13,9 @@ namespace LibraryManagement.Application.Models.DTOs.BookRequest
         public string? ApproverId { get; set; }  // Changed to string
 
         //Navigation properties
-        public User Requester { get; set; }
+        public ApplicationUser Requester { get; set; }
 
-        public User? Approver { get; set; }
+        public ApplicationUser? Approver { get; set; }
         public ICollection<BookBorrowingRequestDetails> RequestDetails { get; set; }
     }
 }

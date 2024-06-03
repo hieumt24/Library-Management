@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagement.Application.Models.Identity
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required(ErrorMessage = "First Name is required.")]
         [StringLength(50, ErrorMessage = "First Name can't be longer than 50 characters.")]

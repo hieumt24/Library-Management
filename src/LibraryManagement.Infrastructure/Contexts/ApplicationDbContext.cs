@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.Infrastructure.Contexts
 {
-    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<BookImage> BookImages { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -28,7 +28,7 @@ namespace LibraryManagement.Infrastructure.Contexts
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<User>(entity =>
+            builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable("User");
             });
@@ -59,13 +59,13 @@ namespace LibraryManagement.Infrastructure.Contexts
 
             //Configure relationships for BookBorrowingRequest
             builder.Entity<BookBorrowingRequest>()
-                .HasOne<User>(b => b.Requester)
+                .HasOne<ApplicationUser>(b => b.Requester)
                 .WithMany()
                 .HasForeignKey(b => b.RequesterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<BookBorrowingRequest>()
-                .HasOne<User>(b => b.Approver)
+                .HasOne<ApplicationUser>(b => b.Approver)
                 .WithMany()
                 .HasForeignKey(b => b.ApproverId)
                 .OnDelete(DeleteBehavior.Restrict);

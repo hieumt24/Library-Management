@@ -15,7 +15,7 @@ namespace LibraryManagement.Application.Models.DTOs.Account
         public string Email { get; set; }
 
         [Required]
-        [MinLength(6)]
+        [MinLength(5)]
         public string UserName { get; set; }
 
         [Required]

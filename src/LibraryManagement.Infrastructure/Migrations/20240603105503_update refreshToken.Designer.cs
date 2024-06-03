@@ -4,6 +4,7 @@ using LibraryManagement.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240603105503_update refreshToken")]
+    partial class updaterefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,34 +130,38 @@ namespace LibraryManagement.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Expires")
+                    b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReplacedByToken")
+                    b.Property<bool>("Invalidated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JwtId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.Identity.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -411,7 +418,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = "d54e5765-0289-43d7-8177-2a010ac2e8e8",
+                            Id = "0e3bcb81-43a0-464e-897c-6e1ca36ab234",
                             ConcurrencyStamp = "843ef537-0078-496e-8fbd-ac24d3caca8d",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
@@ -526,12 +533,12 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", "Approver")
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", "Approver")
                         .WithMany()
                         .HasForeignKey("ApproverId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", "Requester")
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", "Requester")
                         .WithMany()
                         .HasForeignKey("RequesterId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -563,9 +570,13 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("LibraryManagement.Application.Models.DTOs.Account.RefreshToken", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", null)
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", "User")
                         .WithMany("RefreshTokens")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LibraryManagement.Domain.Entities.Book", b =>
@@ -599,7 +610,7 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", null)
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -608,7 +619,7 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", null)
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -623,7 +634,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", null)
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -632,7 +643,7 @@ namespace LibraryManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LibraryManagement.Application.Models.Identity.ApplicationUser", null)
+                    b.HasOne("LibraryManagement.Application.Models.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -644,7 +655,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                     b.Navigation("RequestDetails");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Application.Models.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("LibraryManagement.Application.Models.Identity.User", b =>
                 {
                     b.Navigation("RefreshTokens");
                 });
