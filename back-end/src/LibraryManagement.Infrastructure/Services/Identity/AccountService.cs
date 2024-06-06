@@ -48,7 +48,7 @@ namespace LibraryManagement.Infrastructure.Services.Identity
             JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
             AuthenticationResponse response = new AuthenticationResponse();
             response.Id = user.Id;
-            response.JWToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            response.JwtToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.UserName = user.UserName;
             response.Email = user.Email;
             var rolesList = await _userManager.GetRolesAsync(user);

@@ -20,10 +20,9 @@ namespace LibraryManagement.WebApi.Controllers
         // GET: api/books
         [HttpGet]
         [Route("books")]
-        [Authorize(Roles = $"{LibraryRoles.Admin},{LibraryRoles.User},{LibraryRoles.SuperUser}")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int limit = 10)
         {
-            var response = await _bookServiceAsync.GetAllBookAsync();
+            var response = await _bookServiceAsync.GetAllBookAsync(page, limit);
             if (response.Message != null)
             {
                 return BadRequest(response.Message);
@@ -34,7 +33,6 @@ namespace LibraryManagement.WebApi.Controllers
         // GET: api/book/{id}
         [HttpGet]
         [Route("book/{id}")]
-        [Authorize(Roles = $"{LibraryRoles.Admin},{LibraryRoles.User},{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var response = await _bookServiceAsync.GetBookByIdAsync(id);
@@ -48,7 +46,7 @@ namespace LibraryManagement.WebApi.Controllers
         // POST: api/book
         [HttpPost]
         [Route("book")]
-        [Authorize(Roles = $"{LibraryRoles.Admin},{LibraryRoles.SuperUser}")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Create([FromBody] AddBookRequestDto request)
         {
             var response = await _bookServiceAsync.AddBookAsync(request);
@@ -62,7 +60,7 @@ namespace LibraryManagement.WebApi.Controllers
         //PUT: api/book/{id}
         [HttpPut]
         [Route("book/{id}")]
-        [Authorize(Roles = $"{LibraryRoles.Admin},{LibraryRoles.SuperUser}")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateBookRequestDto request)
         {
             var response = await _bookServiceAsync.UpdateBookAsync(id, request);
@@ -76,7 +74,7 @@ namespace LibraryManagement.WebApi.Controllers
         // DELETE: api/book/{id}
         [HttpDelete]
         [Route("book/{id}")]
-        [Authorize(Roles = $"{LibraryRoles.Admin}")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var response = await _bookServiceAsync.DeleteBookAsync(id);

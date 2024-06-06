@@ -1,11 +1,12 @@
-﻿using LibraryManagement.Domain.Common.Models;
+﻿using LibraryManagement.Application.Models.BookRequest;
+using LibraryManagement.Domain.Common.Models;
 using LibraryManagement.Domain.Entities;
 
-namespace LibraryManagement.Application.Models.BookRequest
+namespace LibraryManagement.Application.Models.DTOs.BookBorrowDetails
 {
-    public class BookBorrowingRequestDetails : BaseEntity
+    public class BookBorrowingRequestDetailsDto : BaseEntity
     {
-        public Guid BookBorrowingRequestId { get; set; }
+        public string BookBorrowingRequestId { get; set; }
 
         public DateTime BorrowedDate { get; set; }
         public DateTime? ReturnedDate { get; set; }

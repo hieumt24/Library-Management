@@ -10,7 +10,5 @@ namespace LibraryManagement.Application.Models.DTOs.Categories.Request
 
         [StringLength(500, ErrorMessage = "Description can't be longer than 500 characters.")]
         public string? Description { get; set; }
-
-        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -10,7 +10,7 @@ namespace LibraryManagement.Application.Common.Services
     {
         Task<Response<CategoryDto>> AddCategoryAsync(AddCategoryRequestDto request);
 
-        Task<Response<List<CategoryResponseDto>>> GetAllCategoriesAsync();
+        Task<Response<PagedResponse<List<CategoryResponseDto>>>> GetAllCategoriesAsync(int page, int limit);
 
         Task<Response<CategoryResponseDto>> GetCategoryById(Guid id);
 

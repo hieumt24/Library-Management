@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DTOs\BookRequest\Response\" />
+    <Folder Include="Models\DTOs\BookBorrowDetails\Request\" />
   </ItemGroup>
 
 </Project>

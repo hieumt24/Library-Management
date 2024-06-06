@@ -82,18 +82,13 @@ namespace LibraryManagement.Infrastructure.Contexts
                     NormalizedName = LibraryRoles.User.ToUpper(),
                     ConcurrencyStamp = userId
                 },
-                new IdentityRole
-                {
-                    Id = adminId,
-                    Name = LibraryRoles.Admin,
-                    NormalizedName = LibraryRoles.Admin.ToUpper(),
-                    ConcurrencyStamp = adminId
-                },
+
                 new IdentityRole
                 {
                     Name = LibraryRoles.SuperUser,
                     NormalizedName = LibraryRoles.SuperUser.ToUpper(),
-                    ConcurrencyStamp = adminId
+                    ConcurrencyStamp = adminId,
+                    Id = adminId
                 }
             };
             builder.Entity<IdentityRole>().HasData(roles);

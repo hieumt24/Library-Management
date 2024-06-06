@@ -18,9 +18,9 @@ namespace LibraryManagement.WebApi.Controllers
         // GET: api/categories
         [HttpGet]
         [Route("categories")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int limit = 10)
         {
-            var response = await _categoryServiceAsync.GetAllCategoriesAsync();
+            var response = await _categoryServiceAsync.GetAllCategoriesAsync(page, limit);
             if (response.Message != null)
             {
                 return BadRequest(response.Message);
@@ -30,7 +30,7 @@ namespace LibraryManagement.WebApi.Controllers
 
         // GET: api/category/{id}
         [HttpGet]
-        [Route("category/{id:Guid}")]
+        [Route("categories/{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var response = await _categoryServiceAsync.GetCategoryById(id);

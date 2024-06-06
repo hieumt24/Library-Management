@@ -1,5 +1,4 @@
-﻿using LibraryManagement.Application.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagement.Application.Models.DTOs.BookRequest.Request
 {
@@ -9,9 +8,9 @@ namespace LibraryManagement.Application.Models.DTOs.BookRequest.Request
         public string RequesterId { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime DateRequested { get; set; } = DateTime.Now;
 
-        public RequestStatus Status { get; set; } = RequestStatus.Waiting;
-        public string? ApproverId { get; set; }
+        public ICollection<AddBookBorrowingRequestDetailsDto> requestDetailsDtos { get; set; }
     }
 }

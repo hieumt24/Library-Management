@@ -41,7 +41,7 @@ namespace LibraryManagement.Application.Services
                 }
 
                 bookDomain.IsDeleted = false;
-                bookDomain.CreatedOn = DateTime.UtcNow;
+                bookDomain.CreatedOn = DateTime.Now;
 
                 await _bookRepositoryAsync.AddAsync(bookDomain);
 
@@ -74,17 +74,21 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-        public async Task<Response<List<BookResponseDto>>> GetAllBookAsync()
+        public async Task<Response<PagedResponse<List<BookResponseDto>>>> GetAllBookAsync(int page, int limit)
         {
             try
             {
                 var booksSpec = BookSpecifications.GetAllBooksSpec();
+                var totalRecord = await _bookRepositoryAsync.CountAsync(booksSpec);
+                booksSpec.ApplyPaging((page - 1) * limit, limit);
+
+                var totalBooks = await _bookRepositoryAsync.CountAsync(booksSpec);
                 var booksDomain = await _bookRepositoryAsync.ListAsync(booksSpec);
 
-                //Map Domain to Dto
                 var listBookDto = _mapper.Map<List<BookResponseDto>>(booksDomain);
+                var pagedResponse = new PagedResponse<List<BookResponseDto>>(listBookDto, page, limit, totalRecord);
 
-                return new Response<List<BookResponseDto>>(listBookDto);
+                return new Response<PagedResponse<List<BookResponseDto>>>(pagedResponse);
             }
             catch (Exception ex)
             {
@@ -132,7 +136,7 @@ namespace LibraryManagement.Application.Services
                 existingBook.CategoryId = bookDomain.CategoryId;
                 existingBook.IsDeleted = bookDomain.IsDeleted;
 
-                existingBook.LastModifiedOn = DateTime.UtcNow;
+                existingBook.LastModifiedOn = DateTime.Now;
 
                 await _bookRepositoryAsync.UpdateAsync(existingBook);
 

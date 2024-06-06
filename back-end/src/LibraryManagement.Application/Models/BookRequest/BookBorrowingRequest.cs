@@ -6,10 +6,10 @@ namespace LibraryManagement.Application.Models.BookRequest;
 
 public class BookBorrowingRequest : BaseEntity
 {
-    public string RequesterId { get; set; }  // Changed to string
+    public string RequesterId { get; set; }
     public DateTime DateRequested { get; set; }
     public RequestStatus Status { get; set; }
-    public string? ApproverId { get; set; }  // Changed to string
+    public string? ApproverId { get; set; }
 
     //Navigation properties
     public ApplicationUser Requester { get; set; }

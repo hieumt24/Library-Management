@@ -8,8 +8,8 @@ namespace LibraryManagement.Domain.Specifications.Books
         public static BaseSpecification<Book> GetAllBooksSpec()
         {
             var spec = new BaseSpecification<Book>(x => !x.IsDeleted);
-            //var spec = new BaseSpecification<Book>(x => x.IsDeleted == false);
             spec.AddInclude(x => x.Category);
+
             return spec;
         }
 

@@ -4,6 +4,7 @@ using LibraryManagement.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240604224214_update type bookborrowingRequestId")]
+    partial class updatetypebookborrowingRequestId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +74,11 @@ namespace LibraryManagement.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BookBorrowingRequestId")
+                    b.Property<string>("BookBorrowingRequestId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("BookBorrowingRequestId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BookId")
@@ -100,7 +107,7 @@ namespace LibraryManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookBorrowingRequestId");
+                    b.HasIndex("BookBorrowingRequestId1");
 
                     b.HasIndex("BookId");
 
@@ -527,9 +534,7 @@ namespace LibraryManagement.Infrastructure.Migrations
                 {
                     b.HasOne("LibraryManagement.Application.Models.BookRequest.BookBorrowingRequest", "BookBorrowingRequest")
                         .WithMany("RequestDetails")
-                        .HasForeignKey("BookBorrowingRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookBorrowingRequestId1");
 
                     b.HasOne("LibraryManagement.Domain.Entities.Book", "Book")
                         .WithMany()

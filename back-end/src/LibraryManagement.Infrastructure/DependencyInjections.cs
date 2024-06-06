@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.Application.Common.Repositories;
 using LibraryManagement.Application.Common.Services;
+using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.Identity;
 using LibraryManagement.Application.Wrappers;
 using LibraryManagement.Domain.Common.Settings;
@@ -33,6 +34,8 @@ namespace LibraryManagement.Infrastructure
             services.AddScoped<ICategoryRepositoryAsync, CategoryRepositoryAsync>();
             services.AddScoped<IBookRepositoryAsync, BookRepositoryAsync>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IBookBorrowingRequestRepositoryAsync, BookBorrowingRequestRepositoryAsync>();
+            services.AddScoped<IBookBorrowingRequestDetailsRepositoryAsync, BookBorrowingRequestDetailsRepositoryAsync>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -86,6 +89,15 @@ namespace LibraryManagement.Infrastructure
                     //    },
                     //};
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy($"{LibraryRoles.SuperUser}", policy =>
+                    policy.RequireRole("SuperUser"));
+
+                options.AddPolicy($"{LibraryRoles.User}", policy =>
+                    policy.RequireRole("User"));
+            });
         }
     }
 }

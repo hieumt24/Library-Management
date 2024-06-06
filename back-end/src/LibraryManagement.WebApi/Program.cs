@@ -1,5 +1,6 @@
 using LibraryManagement.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -18,7 +19,15 @@ public class Program
               options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
               options.JsonSerializerOptions.WriteIndented = true;
           });
-
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+        });
         builder.Services.AddSwaggerGen(options =>
         {
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -47,10 +56,10 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        //{
-        //    options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb"));
-        //});
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb"));
+        });
         LibraryManagement.Application.DependencyInjections.Configure(builder.Services);
         LibraryManagement.Infrastructure.DependencyInjections.ConfigureServices(builder.Services, builder.Configuration);
         var app = builder.Build();
@@ -63,10 +72,16 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        app.UseCors();
+        app.UseAuthentication();
         app.UseAuthorization();
-
         app.MapControllers();
+        //app.UseStaticFiles(new StaticFileOptions
+        //{
+        //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+        //    RequestPath = "/Images"
+        //    // https://localhost:1234/Images
+        //});
 
         app.Run();
     }

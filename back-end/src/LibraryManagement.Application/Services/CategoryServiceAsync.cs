@@ -7,6 +7,7 @@ using LibraryManagement.Application.Models.DTOs.Categories.Response;
 using LibraryManagement.Application.Wrappers;
 using LibraryManagement.Domain.Entities;
 using LibraryManagement.Domain.Specifications.Categories;
+using System.Collections.Generic;
 
 namespace LibraryManagement.Application.Services
 {
@@ -40,7 +41,7 @@ namespace LibraryManagement.Application.Services
                 }
 
                 categoryDomain.IsDeleted = false;
-                categoryDomain.CreatedOn = DateTime.UtcNow;
+                categoryDomain.CreatedOn = DateTime.Now;
 
                 await _categoryRepository.AddAsync(categoryDomain);
 
@@ -65,16 +66,21 @@ namespace LibraryManagement.Application.Services
             return new Response<CategoryDto>(_mapper.Map<CategoryDto>(deletedCategoryDomain));
         }
 
-        public async Task<Response<List<CategoryResponseDto>>> GetAllCategoriesAsync()
+        public async Task<Response<PagedResponse<List<CategoryResponseDto>>>> GetAllCategoriesAsync(int page, int limit)
         {
             try
             {
                 var categoriesSpec = CategorySpecifications.GetAllCategoriesSpec();
+                var totalRecords = await _categoryRepository.CountAsync(categoriesSpec);
+
+                categoriesSpec.ApplyPaging((page - 1) * limit, limit);
                 var categoriesDomain = await _categoryRepository.ListAsync(categoriesSpec);
 
                 var listCategoryDto = _mapper.Map<List<CategoryResponseDto>>(categoriesDomain);
 
-                return new Response<List<CategoryResponseDto>>(listCategoryDto);
+                var pageResponse = new PagedResponse<List<CategoryResponseDto>>(listCategoryDto, page, limit, totalRecords);
+
+                return new Response<PagedResponse<List<CategoryResponseDto>>>(pageResponse);
             }
             catch (Exception ex)
             {
@@ -117,9 +123,8 @@ namespace LibraryManagement.Application.Services
 
                 exsitingCategory.Name = categoryDomain.Name;
                 exsitingCategory.Description = categoryDomain.Description;
-                exsitingCategory.IsDeleted = categoryDomain.IsDeleted;
 
-                exsitingCategory.LastModifiedOn = DateTime.UtcNow;
+                exsitingCategory.LastModifiedOn = DateTime.Now;
 
                 await _categoryRepository.UpdateAsync(exsitingCategory);
 

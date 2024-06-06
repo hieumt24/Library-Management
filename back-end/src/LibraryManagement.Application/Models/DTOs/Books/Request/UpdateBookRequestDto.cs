@@ -31,6 +31,5 @@ namespace LibraryManagement.Application.Models.DTOs.Books.Request
         public int PublicationYear { get; set; }
 
         public Guid? CategoryId { get; set; }
-        public bool IsDeleted { get; set; } = false;
     }
 }

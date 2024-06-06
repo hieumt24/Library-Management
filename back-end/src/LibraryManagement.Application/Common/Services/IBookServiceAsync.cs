@@ -10,7 +10,7 @@ namespace LibraryManagement.Application.Common.Services
     {
         Task<Response<BookDto>> AddBookAsync(AddBookRequestDto request);
 
-        Task<Response<List<BookResponseDto>>> GetAllBookAsync();
+        Task<Response<PagedResponse<List<BookResponseDto>>>> GetAllBookAsync(int page, int limit);
 
         Task<Response<BookResponseDto>> GetBookByIdAsync(Guid id);
 

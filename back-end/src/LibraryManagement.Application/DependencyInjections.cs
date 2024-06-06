@@ -12,6 +12,8 @@ namespace LibraryManagement.Application
             services.AddScoped<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddScoped<IBookServiceAsync, BookServiceAsync>();
+            services.AddScoped<IBookBorrowRequestServiceAsync, BookBorrowRequestServiceAsync>();
+            services.AddScoped<IBookBorrowRequestDetailsServiceAsync, BookBorrowRequestDetailsServiceAysnc>();
         }
     }
 }
