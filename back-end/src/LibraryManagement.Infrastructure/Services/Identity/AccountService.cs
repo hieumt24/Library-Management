@@ -51,10 +51,11 @@ namespace LibraryManagement.Infrastructure.Services.Identity
             response.JwtToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             response.UserName = user.UserName;
             response.Email = user.Email;
+            response.FirstName = user.FirstName;
+            response.LastName = user.LastName;
             var rolesList = await _userManager.GetRolesAsync(user);
             response.Roles = rolesList.ToList();
-            var refreshToken = GenerateRefreshToken();
-            response.RefreshToken = refreshToken.Token;
+
             return new Response<AuthenticationResponse>(response, message: $"Authenticated {user.UserName}.");
         }
 

@@ -24,11 +24,12 @@ namespace LibraryManagement.Application.Mappings
             _mapper = mapper;
         }
 
+        public IMapper Mapper => _mapper;
+
         public AutoMapperProfiles()
         {
             //map Category
             CreateMap<Category, CategoryDto>().ReverseMap();
-            //CreateMap<Category, CategoryResponseDto>().ReverseMap();
             CreateMap<Category, CategoryResponseDto>()
                 .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books))
                 .ReverseMap();
@@ -39,7 +40,6 @@ namespace LibraryManagement.Application.Mappings
             CreateMap<Book, BookDto>().ReverseMap();
             CreateMap<Book, AddBookRequestDto>().ReverseMap();
             CreateMap<Book, UpdateBookRequestDto>().ReverseMap();
-            //CreateMap<Book, BookResponseDto>().ReverseMap();
             CreateMap<Book, BookResponseDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
                 .ReverseMap();
@@ -48,7 +48,6 @@ namespace LibraryManagement.Application.Mappings
             CreateMap<BookBorrowingRequest, BookBorrowingRequestDto>().ReverseMap();
             CreateMap<BookBorrowingRequest, AddBookBorrowingRequestDto>().ReverseMap();
             CreateMap<BookBorrowingRequest, UpdateBookBorrowingRequestDto>().ReverseMap();
-            //CreateMap<BookBorrowingRequest, BookBorrowingResponseDto>().ReverseMap();
             CreateMap<BookBorrowingRequest, BookBorrowingResponseDto>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Requester.UserName))
                 .ForMember(dest => dest.ApproverName, opt => opt.MapFrom(src => src.Approver.UserName))

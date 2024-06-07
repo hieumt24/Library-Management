@@ -74,15 +74,15 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-        public async Task<Response<PagedResponse<List<BookResponseDto>>>> GetAllBookAsync(int page, int limit)
+        public async Task<Response<PagedResponse<List<BookResponseDto>>>> GetAllBookAsync(string? title, int page, int limit)
         {
             try
             {
-                var booksSpec = BookSpecifications.GetAllBooksSpec();
+                var booksSpec = BookSpecifications.GetAllBooksSpec(title);
                 var totalRecord = await _bookRepositoryAsync.CountAsync(booksSpec);
                 booksSpec.ApplyPaging((page - 1) * limit, limit);
 
-                var totalBooks = await _bookRepositoryAsync.CountAsync(booksSpec);
+                //var totalBooks = await _bookRepositoryAsync.CountAsync(booksSpec);
                 var booksDomain = await _bookRepositoryAsync.ListAsync(booksSpec);
 
                 var listBookDto = _mapper.Map<List<BookResponseDto>>(booksDomain);

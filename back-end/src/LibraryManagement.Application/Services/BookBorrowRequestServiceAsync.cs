@@ -2,6 +2,7 @@
 using LibraryManagement.Application.Common.Repositories;
 using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Common.Specifications;
+using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.BookRequest;
 using LibraryManagement.Application.Models.DTOs.BookRequest;
 using LibraryManagement.Application.Models.DTOs.BookRequest.Request;
@@ -48,7 +49,6 @@ namespace LibraryManagement.Application.Services
                         BookId = detailsDto.BookId,
                         ReturnedDate = detailsDto.ReturnedDate,
                         BookBorrowingRequestId = bookBorrowingRequest.Id,
-                        
                     });
                 }
 
@@ -74,15 +74,19 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-        public async Task<Response<List<BookBorrowingResponseDto>>> GetAllBookBorrowingRequest()
+        public async Task<Response<PagedResponse<List<BookBorrowingResponseDto>>>> GetAllBookBorrowingRequest(RequestStatus? status, int page, int limit)
         {
             try
             {
-                var bookBorrowRequestSpec = BookBorrowSpecifications.GetAllBookBorrowRequest();
-                var listBookBorrowRequest = await _bookBorrowingRequestRepositoryAsync.ListAsync(bookBorrowRequestSpec);
+                var bookBorrowRequestSpec = BookBorrowSpecifications.GetAllBookBorrowRequest(status);
+                var totalRecord = await _bookBorrowingRequestRepositoryAsync.CountAsync(bookBorrowRequestSpec);
+                bookBorrowRequestSpec.ApplyPaging((page - 1) * limit, limit);
 
-                //map to Dto
-                return new Response<List<BookBorrowingResponseDto>>(_mapper.Map<List<BookBorrowingResponseDto>>(listBookBorrowRequest));
+                var bookBorrowRequest = await _bookBorrowingRequestRepositoryAsync.ListAsync(bookBorrowRequestSpec);
+
+                var bookBorrowRequestDto = _mapper.Map<List<BookBorrowingResponseDto>>(bookBorrowRequest);
+                var pagedResponse = new PagedResponse<List<BookBorrowingResponseDto>>(bookBorrowRequestDto, page, limit, totalRecord);
+                return new Response<PagedResponse<List<BookBorrowingResponseDto>>>(pagedResponse);
             }
             catch (Exception ex)
             {
@@ -162,7 +166,7 @@ namespace LibraryManagement.Application.Services
             }
         }
 
-        public async Task<Response<BookBorrowingRequestDto>> UpdateBookBorrowingRequestAsync(Guid id)
+        public async Task<Response<BookBorrowingRequestDto>> DeleteBookBorrowingRequestAsync(Guid id)
         {
             try
             {

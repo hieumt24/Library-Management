@@ -60,8 +60,8 @@ public class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDb"));
         });
-        LibraryManagement.Application.DependencyInjections.Configure(builder.Services);
-        LibraryManagement.Infrastructure.DependencyInjections.ConfigureServices(builder.Services, builder.Configuration);
+        LibraryManagement.Application.ServiceExtensions.Configure(builder.Services);
+        LibraryManagement.Infrastructure.ServiceRegistration.ConfigureServices(builder.Services, builder.Configuration);
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

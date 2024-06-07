@@ -6,7 +6,5 @@ namespace LibraryManagement.Application.Common.Repositories
     public interface IBookBorrowingRequestRepositoryAsync : IBaseRepositoryAsync<BookBorrowingRequest>
     {
         Task<BookBorrowingRequest> CreateBookBorrowingRequest(BookBorrowingRequest bookBorrowingRequest, List<BookBorrowingRequestDetails> bookBorrowingRequestDetails);
-
-        //Task<List<BookBorrowingRequest>> GetAllBookBorrowingRequest();
     }
 }

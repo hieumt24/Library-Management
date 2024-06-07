@@ -5,9 +5,13 @@ namespace LibraryManagement.Domain.Specifications.Books
 {
     public class BookSpecifications
     {
-        public static BaseSpecification<Book> GetAllBooksSpec()
+        public static BaseSpecification<Book> GetAllBooksSpec(string? title)
         {
-            var spec = new BaseSpecification<Book>(x => !x.IsDeleted);
+            var spec = new BaseSpecification<Book>(x => !x.IsDeleted && x.CategoryId != null);
+            if (!string.IsNullOrEmpty(title))
+            {
+                spec = new BaseSpecification<Book>(x => !x.IsDeleted && x.Title.Contains(title));
+            }
             spec.AddInclude(x => x.Category);
 
             return spec;

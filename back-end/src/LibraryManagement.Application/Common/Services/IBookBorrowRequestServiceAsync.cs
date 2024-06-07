@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Application.Models.DTOs.BookRequest;
+﻿using LibraryManagement.Application.Enums;
+using LibraryManagement.Application.Models.DTOs.BookRequest;
 using LibraryManagement.Application.Models.DTOs.BookRequest.Request;
 using LibraryManagement.Application.Models.DTOs.BookRequest.Response;
 using LibraryManagement.Application.Models.DTOs.Books.Request;
@@ -10,11 +11,11 @@ namespace LibraryManagement.Application.Common.Services
     {
         Task<Response<BookBorrowingResponseDto>> AddBookBorrowRequestAsync(AddBookBorrowingRequestDto request);
 
-        Task<Response<List<BookBorrowingResponseDto>>> GetAllBookBorrowingRequest();
+        Task<Response<PagedResponse<List<BookBorrowingResponseDto>>>> GetAllBookBorrowingRequest(RequestStatus? status, int page, int limit);
 
         Task<Response<BookBorrowingRequestDto>> UpdateBookBorrowingRequestAsync(Guid id, UpdateBookBorrowingRequestDto updateBookBorrowingRequestDto);
 
-        Task<Response<BookBorrowingRequestDto>> UpdateBookBorrowingRequestAsync(Guid id);
+        Task<Response<BookBorrowingRequestDto>> DeleteBookBorrowingRequestAsync(Guid id);
 
         Task<Response<BookBorrowingResponseDto>> GetBookBorrowingRequestById(Guid id);
 

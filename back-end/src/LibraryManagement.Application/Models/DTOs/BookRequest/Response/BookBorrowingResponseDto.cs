@@ -11,5 +11,6 @@ namespace LibraryManagement.Application.Models.DTOs.BookRequest.Response
         public RequestStatus Status { get; set; }
         public string? ApproverId { get; set; }
         public string? ApproverName { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; set; }
     }
 }

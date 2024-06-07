@@ -20,9 +20,9 @@ namespace LibraryManagement.WebApi.Controllers
         // GET: api/books
         [HttpGet]
         [Route("books")]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int limit = 10)
+        public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery] int page = 1, [FromQuery] int limit = 10)
         {
-            var response = await _bookServiceAsync.GetAllBookAsync(page, limit);
+            var response = await _bookServiceAsync.GetAllBookAsync(title, page, limit);
             if (response.Message != null)
             {
                 return BadRequest(response.Message);
@@ -32,7 +32,7 @@ namespace LibraryManagement.WebApi.Controllers
 
         // GET: api/book/{id}
         [HttpGet]
-        [Route("book/{id}")]
+        [Route("books/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var response = await _bookServiceAsync.GetBookByIdAsync(id);

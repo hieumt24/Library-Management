@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Application.Common.Services;
+using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.DTOs.BookRequest.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +19,9 @@ namespace LibraryManagement.WebApi.Controllers
         //GET: api/book-borrowing-requests
         [HttpGet]
         [Route("book-borrowing-requests")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] RequestStatus? status, [FromQuery] int page = 1, [FromQuery] int limit = 10)
         {
-            var response = await _bookBorrowRequestServiceAsync.GetAllBookBorrowingRequest();
+            var response = await _bookBorrowRequestServiceAsync.GetAllBookBorrowingRequest(status, page, limit);
             if (response.Message != null)
             {
                 return BadRequest(response.Message);
@@ -85,7 +86,7 @@ namespace LibraryManagement.WebApi.Controllers
         [Route("book-borrowing-request/{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var response = await _bookBorrowRequestServiceAsync.UpdateBookBorrowingRequestAsync(id);
+            var response = await _bookBorrowRequestServiceAsync.DeleteBookBorrowingRequestAsync(id);
             if (response.Message != null)
             {
                 return BadRequest(response.Message);

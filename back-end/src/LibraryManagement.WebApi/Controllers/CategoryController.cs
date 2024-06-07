@@ -1,5 +1,7 @@
 using LibraryManagement.Application.Common.Services;
+using LibraryManagement.Application.Enums;
 using LibraryManagement.Application.Models.DTOs.Categories.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.WebApi.Controllers
@@ -44,6 +46,7 @@ namespace LibraryManagement.WebApi.Controllers
         // POST: api/category
         [HttpPost]
         [Route("category")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Create([FromBody] AddCategoryRequestDto request)
         {
             var response = await _categoryServiceAsync.AddCategoryAsync(request);
@@ -57,6 +60,7 @@ namespace LibraryManagement.WebApi.Controllers
         //DELETE: api/category/{id}
         [HttpDelete]
         [Route("category/{id:Guid}")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var response = await _categoryServiceAsync.DeleteCategoryAsync(id);
@@ -70,6 +74,7 @@ namespace LibraryManagement.WebApi.Controllers
         // PUT: api/category/{id}
         [HttpPut]
         [Route("category/{id:Guid}")]
+        [Authorize(Roles = $"{LibraryRoles.SuperUser}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCategoryRequestDto request)
         {
             var response = await _categoryServiceAsync.UpdateCategoryAsync(id, request);

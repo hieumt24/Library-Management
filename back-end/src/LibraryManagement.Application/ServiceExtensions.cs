@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryManagement.Application
 {
-    public class DependencyInjections
+    public class ServiceExtensions
     {
         public static void Configure(IServiceCollection services)
         {

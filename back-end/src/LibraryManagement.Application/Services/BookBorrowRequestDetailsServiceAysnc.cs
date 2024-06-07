@@ -3,7 +3,6 @@ using LibraryManagement.Application.Common.Repositories;
 using LibraryManagement.Application.Common.Services;
 using LibraryManagement.Application.Common.Specifications;
 using LibraryManagement.Application.Models.DTOs.BookBorrowDetails.Response;
-using LibraryManagement.Application.Models.DTOs.Books.Response;
 using LibraryManagement.Application.Wrappers;
 
 namespace LibraryManagement.Application.Services
